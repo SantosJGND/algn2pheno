@@ -27,14 +27,6 @@ def main():
     if args.odir and args.odir[-1] != "/":
         args.odir += "/"
 
-    logging.basicConfig(
-        filename=os.path.join(args.odir, args.log),
-        filemode="w",
-        format="%(asctime)s - %(message)s",
-        datefmt="%d-%b-%y %H:%M:%S",
-        level=logging.INFO,
-    )
-
     if os.path.isdir(args.odir):
         if args.force:
             print("Ouput directory exists. Overwriting.")
@@ -43,6 +35,14 @@ def main():
             sys.exit(1)
     else:
         os.makedirs(args.odir, exist_ok=True)
+
+    logging.basicConfig(
+        filename=os.path.join(args.odir, args.log),
+        filemode="w",
+        format="%(asctime)s - %(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
+        level=logging.INFO,
+    )
 
     intermediate_file_log = os.path.basename(args.db)
     intermediate_file_log = os.path.splitext(intermediate_file_log)[0]
