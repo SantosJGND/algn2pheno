@@ -1,4 +1,4 @@
-# aln2pheno
+# algn2pheno
 
 **A bioinformatics tool for rapid screening of genetic features (nt or aa changes) potentially linked to specific phenotypes**
 
@@ -6,7 +6,7 @@
 INTRODUCTION
 ------------------
 
-The **aln2pheno** module screens a amino acid/nucleotide alignment against a "genotype-phenotype" database and reports the repertoire of mutations of interest per sequences and their potential impact on phenotype.
+The **algn2pheno** module screens a amino acid/nucleotide alignment against a "genotype-phenotype" database and reports the repertoire of mutations of interest per sequences and their potential impact on phenotype.
 
 
 INPUT FILES
@@ -22,12 +22,21 @@ Alignment (nucleotide or amino acid)
 (Mutation numbering will refer to the user-defined reference sequence included in the alignment).
 
 
+INSTALLATION
+----------------
+```bash
+
+pip install algn2pheno
+
+```
+
+
 USAGE
 ----------------
 
 ```bash
 
-usage: algn2pheno.py [-h] [--db DB] [--sheet SHEET] [--table TABLE]
+usage: algn2pheno [-h] [--db DB] [--sheet SHEET] [--table TABLE]
                      [--gencol GENCOL] [--phencol PHENCOL] -g GENE --algn ALGN
                      -r REFERENCE [--nucl] [--odir ODIR] [--output OUTPUT]
                      [--log LOG] [-f]
@@ -68,13 +77,13 @@ How to run (examples)
 1. database (.tsv) + amino acid alignment (SARS-CoV-2 Spike)
 
 ```bash
-python algn2pheno.py --db database.tsv --algn alignment_aa_Spike.fasta -g S -r reference_header --odir output_folder --output output_prefix
+algn2pheno --db database.tsv --algn alignment_aa_Spike.fasta -g S -r reference_header --odir output_folder --output output_prefix
 ```
 
 2. database (.xlsx) + amino acid alignment (SARS-CoV-2 Spike)
 
 ```bash
-python algn2pheno.py --db database.xlsx --algn alignment_aa_Spike.fasta --sheet S --gencol ["Mutation" column number] --phencol ["Phenotype category" column number] -g S -r reference_header --odir output_folder --output output_prefix
+algn2pheno --db database.xlsx --algn alignment_aa_Spike.fasta --sheet S --gencol ["Mutation" column number] --phencol ["Phenotype category" column number] -g S -r reference_header --odir output_folder --output output_prefix
 ```
 
 REQUIREMENTS

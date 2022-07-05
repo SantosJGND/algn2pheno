@@ -2,10 +2,7 @@
 
 
 """
-Main function for aln2pheno. 
-
-
-
+Main function for algn2pheno. 
 
 By Carljin Boghart & Joao Santos
 @INSA, @Surrey
@@ -16,8 +13,8 @@ import os
 import sys
 import time
 
-from aln2pheno.a2p_classes import alnmt2pheno, gpdb2lut
-from aln2pheno.arg_input import get_args_a2p
+from algn2pheno.a2p_classes import alnmt2pheno, gpdb2lut
+from algn2pheno.arg_input import get_args_a2p
 
 
 def main():
@@ -30,11 +27,19 @@ def main():
     if args.odir and args.odir[-1] != "/":
         args.odir += "/"
 
+    logging.basicConfig(
+        filename=os.path.join(args.odir, args.log),
+        filemode="w",
+        format="%(asctime)s - %(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
+        level=logging.INFO,
+    )
+
     if os.path.isdir(args.odir):
         if args.force:
-            logging.info("Ouput directory exists. Overwriting.")
+            print("Ouput directory exists. Overwriting.")
         else:
-            logging.info("Output directory exists. Exiting. use -f to force overwrite.")
+            print("Output directory exists. Exiting. Use -f to force overwrite.")
             sys.exit(1)
     else:
         os.makedirs(args.odir, exist_ok=True)
@@ -43,14 +48,6 @@ def main():
     intermediate_file_log = os.path.splitext(intermediate_file_log)[0]
     if os.path.splitext(args.db)[1] == ".db":
         intermediate_file_log += "." + args.table
-
-    logging.basicConfig(
-        filename=args.odir + args.log,
-        filemode="w",
-        format="%(asctime)s - %(message)s",
-        datefmt="%d-%b-%y %H:%M:%S",
-        level=logging.INFO,
-    )
 
     ###############################################################################
     ########  2.  READ ALIGNMENT  ################################################
