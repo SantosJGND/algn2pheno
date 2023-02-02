@@ -773,8 +773,9 @@ class alnmt2pheno:
         )
 
         def summarise_flags(f):
-            summary = [x.split(";") for x in f][0]
-
+            summary = [x.split(";") for x in f] #[0]
+            summary = [item for sublist in summary for item in sublist]
+            
             return ";".join(set(summary))
 
         for seq in mut_lists.index:
@@ -811,11 +812,11 @@ class alnmt2pheno:
         )
 
         final_report["Nflagged"] = final_report["Flagged mutations"].apply(
-            lambda x: len(str(x).split(";"))
+            lambda x: len([y for y in str(x).split(";") if y != "nan"])
         )
 
         final_report["Nmutations"] = final_report["All mutations"].apply(
-            lambda x: len(str(x).split(";"))
+            lambda x: len([y for y in str(x).split(";") if y != "nan"])
         )
 
         self.final_report = final_report
